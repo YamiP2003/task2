@@ -1,0 +1,148 @@
+#include<iostream>
+#include<stdlib.h>
+#include<string.h>
+#include<iomanip>
+using namespace std;
+
+float amount=0;  
+int size=0;  
+
+struct Items
+{
+ int id;
+ char item[20];
+ int qty;
+ float rate;
+ float amt;
+}I[20];
+
+
+void drawLine(); 
+void Header();  
+void menu();  
+void showBill(); 
+
+void drawLine()
+{
+ for(int i=1;i<70;i++)
+  cout<<"=";
+ cout<<endl;
+}
+
+void Header()
+{
+ cout<<setw(10)<<"I.D."
+     <<setw(20)<<"Item Name"
+     <<setw(10)<<"Qty."
+     <<setw(10)<<"Rate"
+  <<setw(10)<<"Amount"
+  <<endl;
+}
+
+void showBill()
+{
+ system("cls");
+ drawLine();
+ cout<<"\t\t\tITEMIZED INVOICE\n";
+ drawLine();
+ Header();
+ drawLine();
+ for(int i=0;i<size;i++)
+ {
+  cout<<setw(10)<<I[i].id
+      <<setw(20)<<I[i].item
+      <<setw(10)<<I[i].qty
+      <<setw(10)<<I[i].rate
+   <<setw(10)<<I[i].amt
+   <<endl;
+ }
+ cout<<endl;
+ cout<<setw(50)<<"Total Amount : "
+     <<setw(10)<<amount<<endl;
+ drawLine();
+}
+
+void menu()
+{
+ drawLine();
+ cout<<"\t\t COFFEE BAR\n";
+ drawLine();
+ cout<<"Items Available\t\tRate\n";
+ drawLine();
+ cout<<"0. Exit\n";
+ cout<<"1. Samosa\t\t20.00\n";
+ cout<<"2. Tea\t\t\t10.00\n";
+ cout<<"3. Dosa\t\t\t30.00\n";
+ 
+ cout<<"Enter your choice: ";
+}
+
+int main()
+{
+ int ch, i=0, qty;
+ char choice='n';
+ start:
+ do
+ {
+  system("cls");
+  menu(); 
+  cin>>ch;
+  switch(ch)
+  {
+   case 0:  break;
+   case 1: 
+    cout<<"No. of Samosa: ";
+    cin>>I[i].qty;
+    I[i].id=i+1;
+    strcpy(I[i].item,"Samosa");
+    I[i].rate=20;
+    I[i].amt=I[i].qty*I[i].rate;
+    amount+=I[i].amt;
+    i++;
+    size++;
+   break;
+   
+   case 2: 
+    cout<<"No. of Teas: ";
+    cin>>I[i].qty;
+    I[i].id=i+1;
+    strcpy(I[i].item,"Tea");
+    I[i].rate=10;
+    I[i].amt=I[i].qty*I[i].rate;
+    amount+=I[i].amt;
+    i++;
+    size++;
+   break;
+   
+   case 3: 
+    cout<<"No. of Dosa: ";
+    cin>>I[i].qty;
+    I[i].id=i+1;
+    strcpy(I[i].item,"Dosa");
+    I[i].rate=30;
+    I[i].amt=I[i].qty*I[i].rate;
+    amount+=I[i].amt;
+    i++;
+    size++;
+   break;
+   
+ 
+   
+   default: break;
+  }
+  cout<<"\nDo You Want to Add More (Y/N)? ";
+  cin>>choice;
+ 
+  if(choice=='Y'||choice=='y')
+   goto start;
+  else if(choice!='Y'||choice!='y')
+   ch=0;
+   
+ }while(ch!=0);
+
+ if((choice!='y'||choice!='Y') && amount>0)
+   showBill();
+ else
+   cout<<"\nNo Order Placed Yet...\n";
+ system("pause");
+}
